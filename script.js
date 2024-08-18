@@ -14,5 +14,17 @@ function getComputerChoice() {
   }
 }
 
-getComputerChoice();
- 
+function getHumanChoice() {
+  let userChoice = prompt('Choose between Rock 🪨, Paper 🗞️ and Scissors ✂️!');
+  userChoice = userChoice.toLowerCase();
+
+  const availableChoices = ['rock', 'paper', 'scissors'];
+
+  if (!availableChoices.includes(userChoice.toLowerCase())) {
+    alert("That's not a valid answer!");
+    return getHumanChoice();
+  }
+
+  const choice = userChoice.charAt(0).toUpperCase() + userChoice.slice(1);
+  return choice;
+}
