@@ -1,6 +1,33 @@
+// Do not touch
 let humanScore = 0;
 let computerScore = 0;
 let round = 1;
+
+// Here you can increment the total rounds if you want
+let totalRounds = 5;
+
+(function playGame() {
+  while (round <= totalRounds) {
+    if (!round) {
+      break;
+    }
+
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+
+    playRound(humanChoice, computerChoice);
+  }
+
+  const answer = prompt('Want to play another match? (Press OK/Cancel)');
+  if (answer === null) {
+    return;
+  }
+
+  round = 1;
+  humanScore = 0;
+  computerScore = 0;
+  playGame();
+})();
 
 function getComputerChoice() {
   const randomChoice = Math.floor(Math.random() * 3) + 1;
@@ -19,7 +46,7 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let userChoice = prompt(`Round ${round} of 5
+  let userChoice = prompt(`Round ${round} of ${totalRounds}
 Choose between Rock 🪨, Paper 🗞️ and Scissors ✂️!`);
   if (!userChoice) {
     userChoice = 'undefined';
@@ -70,19 +97,25 @@ function playRound(humanChoice, computerChoice) {
       break;
   }
 
-  if (round < 5) {
+  if (round < totalRounds) {
     alert(`Score: ${humanScore} - ${computerScore}
-Press OK to play another round! (${round}/5)`);
+Press OK to play another round! (${round}/${totalRounds})`);
+
     round++;
   } else {
-    const winMessage = humanScore > computerScore ? 'You win!! 🙌🏻' : 'Computer wins.. 🤖';
+    const winMessage = () => {
+      if (humanScore === computerScore) {
+        return 'Incredibly, the game has ended in a tie!';
+      } else if (humanScore > computerScore) {
+        return 'Congratulations user, You won the game!';
+      } else {
+        return 'The computer has defeated you..';
+      }
+    };
 
-    alert(`Score: ${humanScore} - ${computerScore}
-${winMessage}`);
+    alert(`Final score: ${humanScore} - ${computerScore}
+${winMessage()}`);
+
+    round = null;
   }
 }
-
-const humanChoice = getHumanChoice();
-const computerChoice = getComputerChoice();
-
-playRound(humanChoice, computerChoice);
