@@ -1,5 +1,6 @@
 let humanScore = 0;
 let computerScore = 0;
+let round = 1;
 
 function getComputerChoice() {
   const randomChoice = Math.floor(Math.random() * 3) + 1;
@@ -18,7 +19,11 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let userChoice = prompt('Choose between Rock 🪨, Paper 🗞️ and Scissors ✂️!');
+  let userChoice = prompt(`Round ${round} of 5
+Choose between Rock 🪨, Paper 🗞️ and Scissors ✂️!`);
+  if (!userChoice) {
+    userChoice = 'undefined';
+  }
   userChoice = userChoice.toLowerCase();
 
   const availableChoices = ['rock', 'paper', 'scissors'];
@@ -65,7 +70,16 @@ function playRound(humanChoice, computerChoice) {
       break;
   }
 
-  alert(`Score: ${humanScore} - ${computerScore}`);
+  if (round < 5) {
+    alert(`Score: ${humanScore} - ${computerScore}
+Press OK to play another round! (${round}/5)`);
+    round++;
+  } else {
+    const winMessage = humanScore > computerScore ? 'You win!! 🙌🏻' : 'Computer wins.. 🤖';
+
+    alert(`Score: ${humanScore} - ${computerScore}
+${winMessage}`);
+  }
 }
 
 const humanChoice = getHumanChoice();
