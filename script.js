@@ -2,32 +2,26 @@
 let humanScore = 0;
 let computerScore = 0;
 let round = 1;
-
-// Here you can increment the total rounds if you want
 let totalRounds = 5;
 
-(function playGame() {
-  while (round <= totalRounds) {
-    if (!round) {
+const choiceContainer = document.querySelector('#choice-container');
+const roundResults = document.querySelector('#round-results');
+
+choiceContainer.addEventListener('click', (e) => {
+  const target = e.target;
+
+  switch (target.id) {
+    case 'rock-btn':
+      playRound('Rock', getComputerChoice());
       break;
-    }
-
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-
-    playRound(humanChoice, computerChoice);
+    case 'paper-btn':
+      playRound('Paper', getComputerChoice());
+      break;
+    case 'scissors-btn':
+      playRound('Scissors', getComputerChoice());
+      break;
   }
-
-  const answer = prompt('Want to play another match? (Press OK/Cancel)');
-  if (answer === null) {
-    return;
-  }
-
-  round = 1;
-  humanScore = 0;
-  computerScore = 0;
-  playGame();
-})();
+});
 
 function getComputerChoice() {
   const randomChoice = Math.floor(Math.random() * 3) + 1;
@@ -43,25 +37,6 @@ function getComputerChoice() {
       return 'Scissors';
       break;
   }
-}
-
-function getHumanChoice() {
-  let userChoice = prompt(`Round ${round} of ${totalRounds}
-Choose between Rock 🪨, Paper 🗞️ and Scissors ✂️!`);
-  if (!userChoice) {
-    userChoice = 'undefined';
-  }
-  userChoice = userChoice.toLowerCase();
-
-  const availableChoices = ['rock', 'paper', 'scissors'];
-
-  if (!availableChoices.includes(userChoice.toLowerCase())) {
-    alert("That's not a valid answer!");
-    return getHumanChoice();
-  }
-
-  const choice = userChoice.charAt(0).toUpperCase() + userChoice.slice(1);
-  return choice;
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -85,21 +60,21 @@ function playRound(humanChoice, computerChoice) {
 
   switch (winner()) {
     case 'tie':
-      alert(`${humanChoice} vs ${computerChoice}... It's a tie!`);
+      roundResults.textContent = `${humanChoice} vs ${computerChoice}... It's a tie!`;
       break;
     case 'human':
       humanScore++;
-      alert(`${humanChoice} beats ${computerChoice}! You win!! 🥳`);
+      roundResults.textContent = `${humanChoice} beats ${computerChoice}! You win!! 🥳`;
       break;
     case 'computer':
       computerScore++;
-      alert(`${humanChoice} gets destroyed by ${computerChoice}. You lost..`);
+      roundResults.textContent = `${humanChoice} gets destroyed by ${computerChoice}. You lost..`;
       break;
   }
 
   if (round < totalRounds) {
-    alert(`Score: ${humanScore} - ${computerScore}
-Press OK to play another round! (${round}/${totalRounds})`);
+    roundResults.textContent += `\nScore: ${humanScore} - ${computerScore}
+Press a button to play another round! (${round}/${totalRounds})`;
 
     round++;
   } else {
@@ -107,15 +82,17 @@ Press OK to play another round! (${round}/${totalRounds})`);
       if (humanScore === computerScore) {
         return 'Incredibly, the game has ended in a tie!';
       } else if (humanScore > computerScore) {
-        return 'Congratulations user, You won the game!';
+        return 'Congratulations user, you won the game!';
       } else {
         return 'The computer has defeated you..';
       }
     };
 
-    alert(`Final score: ${humanScore} - ${computerScore}
-${winMessage()}`);
+    roundResults.textContent = `Final score: ${humanScore} - ${computerScore}
+${winMessage()}`;
 
-    round = null;
+    humanScore = 0;
+    computerScore = 0;
+    round = 1;
   }
 }
