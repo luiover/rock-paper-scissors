@@ -4,24 +4,53 @@ let computerScore = 0;
 let round = 1;
 let totalRounds = 5;
 
-const choiceContainer = document.querySelector('#choice-container');
+const choicesDiv = document.querySelector('#human-choices');
 const roundResults = document.querySelector('#round-results');
+const score = document.querySelector('#score');
+const roundHeader = document.querySelector('#round-header');
+const playAgain = document.querySelector('#play-again');
+const resultsRectangle = document.querySelector('#results-rectangle');
 
-choiceContainer.addEventListener('click', (e) => {
+const computerRockBtn = document.querySelector('#c-rock-btn');
+const computerPaperBtn = document.querySelector('#c-paper-btn');
+const computerScissorsBtn = document.querySelector('#c-scissors-btn');
+const humanRockBtn = document.querySelector('#h-rock-btn');
+const humanPaperBtn = document.querySelector('#h-paper-btn');
+const humanScissorsBtn = document.querySelector('#h-scissors-btn');
+
+const humanButtons = document.querySelectorAll('#human-choices > .human.choice');
+const computerButtons = document.querySelectorAll('#computer-choices > .computer.choice');
+
+function loopOverButtons(buttons, callback) {
+  buttons.forEach(callback);
+}
+
+choicesDiv.addEventListener('click', (e) => {
   const target = e.target;
 
   switch (target.id) {
-    case 'rock-btn':
+    case 'h-rock-btn':
+      humanPaperBtn.classList.remove('chosen');
+      humanScissorsBtn.classList.remove('chosen');
+      humanRockBtn.classList.add('chosen');
       playRound('Rock', getComputerChoice());
       break;
-    case 'paper-btn':
+    case 'h-paper-btn':
+      humanPaperBtn.classList.add('chosen');
+      humanScissorsBtn.classList.remove('chosen');
+      humanRockBtn.classList.remove('chosen');
       playRound('Paper', getComputerChoice());
       break;
-    case 'scissors-btn':
+    case 'h-scissors-btn':
+      humanPaperBtn.classList.remove('chosen');
+      humanScissorsBtn.classList.add('chosen');
+      humanRockBtn.classList.remove('chosen');
       playRound('Scissors', getComputerChoice());
       break;
   }
 });
+
+playAgain.addEventListener('click', togglePlayAgain);
 
 function getComputerChoice() {
   const randomChoice = Math.floor(Math.random() * 3) + 1;
@@ -40,6 +69,7 @@ function getComputerChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
+  roundHeader.textContent = `— ROUND ${round} —`;
   const winner = () => {
     if (humanChoice === computerChoice) {
       return 'tie';
@@ -58,41 +88,83 @@ function playRound(humanChoice, computerChoice) {
     }
   };
 
+  switch (computerChoice) {
+    case 'Rock':
+      computerRockBtn.classList.add('selected');
+      computerPaperBtn.classList.remove('selected');
+      computerScissorsBtn.classList.remove('selected');
+      break;
+    case 'Paper':
+      computerRockBtn.classList.remove('selected');
+      computerPaperBtn.classList.add('selected');
+      computerScissorsBtn.classList.remove('selected');
+      break;
+    case 'Scissors':
+      computerRockBtn.classList.remove('selected');
+      computerPaperBtn.classList.remove('selected');
+      computerScissorsBtn.classList.add('selected');
+      break;
+  }
+
   switch (winner()) {
     case 'tie':
-      roundResults.textContent = `${humanChoice} vs ${computerChoice}... It's a tie!`;
+      roundResults.textContent = `${humanChoice} smashes ${computerChoice}\nIt's a tie!`;
+      resultsRectangle.style.backgroundColor = '#CBC8BE';
       break;
     case 'human':
       humanScore++;
-      roundResults.textContent = `${humanChoice} beats ${computerChoice}! You win!! 🥳`;
+      roundResults.textContent = `${humanChoice} beats ${computerChoice}! \nYou win!! 🥳`;
+      resultsRectangle.style.backgroundColor = '#FF8D8A';
       break;
     case 'computer':
       computerScore++;
-      roundResults.textContent = `${humanChoice} gets destroyed by ${computerChoice}. You lost..`;
+      roundResults.textContent = `${humanChoice} burns by ${computerChoice}. \nYou lost..`;
+      resultsRectangle.style.backgroundColor = '#BEE8A1';
       break;
   }
 
   if (round < totalRounds) {
-    roundResults.textContent += `\nScore: ${humanScore} - ${computerScore}
-Press a button to play another round! (${round}/${totalRounds})`;
+    score.textContent = `Score: ${humanScore} - ${computerScore}`;
 
     round++;
   } else {
     const winMessage = () => {
       if (humanScore === computerScore) {
-        return 'Incredibly, the game has ended in a tie!';
+        score.style.color = '#ffffff';
+        return 'What a tie!!';
       } else if (humanScore > computerScore) {
-        return 'Congratulations user, you won the game!';
+        score.style.color = '#ffffff';
+        return 'Human wins!';
       } else {
-        return 'The computer has defeated you..';
+        score.style.color = '#ffffff';
+        return 'Computer wins...';
       }
     };
 
-    roundResults.textContent = `Final score: ${humanScore} - ${computerScore}
-${winMessage()}`;
+    score.textContent = `${winMessage()} (${humanScore} - ${computerScore})`;
+
+    togglePlayAgain();
 
     humanScore = 0;
     computerScore = 0;
     round = 1;
+  }
+}
+
+function togglePlayAgain() {
+  const classList = playAgain.classList;
+  playAgain.classList.toggle('active');
+  if (classList.contains('active')) {
+    loopOverButtons(humanButtons, (button) => {
+      button.disabled = true;
+    });
+  } else {
+    loopOverButtons(humanButtons, (button) => {
+      button.disabled = false;
+    });
+    roundResults.textContent = 'Please make your choice by clicking one of the buttons on your right!';
+    roundHeader.textContent = '— TO START —';
+    score.textContent = 'Score: 0 - 0';
+    resultsRectangle.style.backgroundColor = '#afafaf';
   }
 }

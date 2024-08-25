@@ -1,3 +1,194 @@
-#round-results {
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: 'Noto Sans', 'Roboto', 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #2a2a2a;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-container {
+  display: flex;
+  gap: 16px;
+}
+
+#game-header {
+  margin-bottom: 74px;
+  font-size: 60px;
+}
+#score {
+  color: #e0d284;
   white-space: pre;
+  text-align: center;
+}
+
+#results-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+#results-rectangle {
+  background-color: #afafaf;
+  color: #1e1e1e;
+
+  width: 400px;
+  height: 400px;
+  padding: 28px;
+}
+
+#round-header {
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  color: black;
+  font-family: 'Montserrat';
+  font-weight: 900;
+}
+
+#round-results {
+  margin: 80px 28px 0 28px;
+  font-size: 24px;
+  font-weight: 700;
+  white-space: pre;
+  text-wrap: wrap;
+  text-align: center;
+}
+
+/* Buttons */
+
+#human-choices,
+#computer-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#human-header,
+#computer-header {
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+#computer-header {
+  color: #b4b4b4;
+}
+
+#human-row,
+#computer-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.human.choice {
+  background-color: #d9d9d9;
+  transition: transform 0.2s ease;
+}
+
+.human.choice:active {
+  transform: scale(0.96);
+}
+
+.human.choice.chosen {
+  border: 5px solid #ffffff;
+  background-color: #ebeaea;
+  border-radius: 3px;
+}
+
+.computer.choice {
+  background-color: #944a4a;
+  transition: all 0.3s ease;
+}
+
+.computer.choice.selected {
+  background-color: transparent;
+  border: 5px solid #944a4a;
+}
+
+.choice {
+  width: 180px;
+  height: 120px;
+  border: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+#play-again {
+  width: 200px;
+  height: 42px;
+
+  transform: scale(0);
+  transition: 200ms ease-in-out;
+
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #232323;
+  background-color: #d9d9d9;
+
+  border: none;
+  border-radius: 12px;
+}
+
+#play-again.active {
+  transform: scale(1);
+}
+
+.choice:disabled {
+  background-color: #292929;
+  border: 5px solid #232323;
+}
+
+.choice.chosen:disabled {
+  border: 5px solid #5e5e5e;
+  background-color: #c2c1c1;
+}
+
+/* Define custom button colors */
+#h-rock-btn {
+  color: #545454;
+  border-radius: 12px 0px 0px 0px;
+}
+
+#h-paper-btn {
+  color: #7e5050;
+}
+
+#h-scissors-btn {
+  color: #718989;
+  border-radius: 0px 0px 0px 12px;
+}
+
+#c-rock-btn {
+  color: #ff9090;
+  border-radius: 0px 12px 0px 0px;
+}
+
+#c-paper-btn {
+  color: #cfcfcf;
+}
+
+#c-scissors-btn {
+  color: #deab86;
+  border-radius: 0px 0px 12px 0px;
 }

@@ -9,11 +9,35 @@
   </head>
 
   <body>
-    <div id="choice-container">
-      <button class="choice" id="rock-btn">Rock</button>
-      <button class="choice" id="paper-btn">Paper</button>
-      <button class="choice" id="scissors-btn">Scissors</button>
+    <h1 id="game-header">Rock Paper Scissors</h1>
+
+    <div id="game-container">
+      <div id="human-row">
+        <h2 id="human-header">Human</h2>
+        <div id="human-choices">
+          <button class="human choice" id="h-rock-btn">Rock</button>
+          <button class="human choice" id="h-paper-btn">Paper</button>
+          <button class="human choice" id="h-scissors-btn">Scissors</button>
+        </div>
+      </div>
+
+      <div id="results-card">
+        <h1 id="score">Score: 0 - 0</h1>
+        <div id="results-rectangle">
+          <h1 id="round-header">— TO START —</h1>
+          <p id="round-results">Please make your choice by clicking one of the buttons on your right!</p>
+        </div>
+      </div>
+
+      <div id="computer-row">
+        <h2 id="computer-header">Enemy</h2>
+        <div id="computer-choices">
+          <div class="computer choice" id="c-rock-btn">Rock</div>
+          <div class="computer choice" id="c-paper-btn">Paper</div>
+          <div class="computer choice" id="c-scissors-btn">Scissors</div>
+        </div>
+      </div>
     </div>
-    <p id="round-results"></p>
+    <button id="play-again">Play again!</button>
   </body>
 </html>
