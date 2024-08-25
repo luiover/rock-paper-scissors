@@ -114,12 +114,12 @@ function playRound(humanChoice, computerChoice) {
     case 'human':
       humanScore++;
       roundResults.textContent = `${humanChoice} beats ${computerChoice}! \nYou win!! 🥳`;
-      resultsRectangle.style.backgroundColor = '#FF8D8A';
+      resultsRectangle.style.backgroundColor = '#BEE8A1';
       break;
     case 'computer':
       computerScore++;
       roundResults.textContent = `${humanChoice} burns by ${computerChoice}. \nYou lost..`;
-      resultsRectangle.style.backgroundColor = '#BEE8A1';
+      resultsRectangle.style.backgroundColor = '#FF8D8A';
       break;
   }
 
