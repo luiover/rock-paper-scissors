@@ -109,17 +109,14 @@ function playRound(humanChoice, computerChoice) {
   switch (winner()) {
     case 'tie':
       roundResults.textContent = `${humanChoice} smashes ${computerChoice}\nIt's a tie!`;
-      resultsRectangle.style.backgroundColor = '#CBC8BE';
       break;
     case 'human':
       humanScore++;
       roundResults.textContent = `${humanChoice} beats ${computerChoice}! \nYou win!! 🥳`;
-      resultsRectangle.style.backgroundColor = '#BEE8A1';
       break;
     case 'computer':
       computerScore++;
       roundResults.textContent = `${humanChoice} burns by ${computerChoice}. \nYou lost..`;
-      resultsRectangle.style.backgroundColor = '#FF8D8A';
       break;
   }
 
