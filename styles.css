@@ -96,7 +96,7 @@ body {
 }
 
 .human.choice {
-  background-color: #d9d9d9;
+  background-color: #dfdddd;
   transition: transform 0.2s ease;
 }
 
@@ -106,8 +106,9 @@ body {
 
 .human.choice.chosen {
   border: 5px solid #ffffff;
-  background-color: #ebeaea;
+  background-color: transparent;
   border-radius: 3px;
+  color: #e0d284 !important;
 }
 
 .computer.choice {
@@ -165,7 +166,7 @@ body {
 
 .choice.chosen:disabled {
   border: 5px solid #5e5e5e;
-  background-color: #c2c1c1;
+  color: #aca26a !important;
 }
 
 /* Define custom button colors */

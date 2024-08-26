@@ -2,7 +2,7 @@
 let humanScore = 0;
 let computerScore = 0;
 let round = 1;
-let totalRounds = 5;
+let hasGameEnded = false;
 
 const choicesDiv = document.querySelector('#human-choices');
 const roundResults = document.querySelector('#round-results');
@@ -123,32 +123,22 @@ function playRound(humanChoice, computerChoice) {
       break;
   }
 
-  if (round < totalRounds && humanScore < 3 && computerScore < 3) {
-    score.textContent = `Score: ${humanScore} - ${computerScore}`;
-
-    round++;
+  if (humanScore === 5) {
+    winMessage = 'Human wins!';
+  } else if (computerScore === 5) {
+    winMessage = 'Computer wins...';
   } else {
-    const winMessage = () => {
-      if (humanScore === computerScore) {
-        score.style.color = '#ffffff';
-        return 'What a tie!!';
-      } else if (humanScore > computerScore) {
-        score.style.color = '#ffffff';
-        return 'Human wins!';
-      } else {
-        score.style.color = '#ffffff';
-        return 'Computer wins...';
-      }
-    };
-
-    score.textContent = `${winMessage()} (${humanScore} - ${computerScore})`;
-
-    togglePlayAgain();
-
-    humanScore = 0;
-    computerScore = 0;
-    round = 1;
+    score.textContent = `Score: ${humanScore} - ${computerScore}`;
+    return round++;
   }
+
+  score.textContent = `${winMessage} (${humanScore} - ${computerScore})`;
+
+  togglePlayAgain();
+
+  humanScore = 0;
+  computerScore = 0;
+  round = 1;
 }
 
 function togglePlayAgain() {
