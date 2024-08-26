@@ -150,6 +150,10 @@ body {
   border-radius: 12px;
 }
 
+#play-again:hover {
+  cursor: pointer;
+}
+
 #play-again.active {
   transform: scale(1);
 }
@@ -177,6 +181,12 @@ body {
 #h-scissors-btn {
   color: #718989;
   border-radius: 0px 0px 0px 12px;
+}
+
+#h-rock-btn:hover,
+#h-paper-btn:hover,
+#h-scissors-btn:hover {
+  cursor: pointer;
 }
 
 #c-rock-btn {
