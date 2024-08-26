@@ -154,17 +154,19 @@ function playRound(humanChoice, computerChoice) {
 function togglePlayAgain() {
   const classList = playAgain.classList;
   playAgain.classList.toggle('active');
-  if (classList.contains('active')) {
-    loopOverButtons(humanButtons, (button) => {
-      button.disabled = true;
-    });
-  } else {
-    loopOverButtons(humanButtons, (button) => {
-      button.disabled = false;
-    });
-    roundResults.textContent = 'Please make your choice by clicking one of the buttons on your right!';
-    roundHeader.textContent = '— TO START —';
-    score.textContent = 'Score: 0 - 0';
-    resultsRectangle.style.backgroundColor = '#afafaf';
-  }
+
+  loopOverButtons(humanButtons, (button) => {
+    button.disabled = classList.contains('active') ? true : false;
+
+    if (!button.disabled) {
+      button.classList.remove('chosen');
+      roundResults.textContent = 'Please make your choice by clicking one of the buttons on your right!';
+      roundHeader.textContent = '— TO START —';
+      score.textContent = 'Score: 0 - 0';
+      resultsRectangle.style.backgroundColor = '#afafaf';
+      loopOverButtons(computerButtons, (button) => {
+        button.classList.remove('selected');
+      });
+    }
+  });
 }
