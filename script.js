@@ -123,7 +123,7 @@ function playRound(humanChoice, computerChoice) {
       break;
   }
 
-  if (round < totalRounds) {
+  if (round < totalRounds && humanScore < 3 && computerScore < 3) {
     score.textContent = `Score: ${humanScore} - ${computerScore}`;
 
     round++;
